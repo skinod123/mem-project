@@ -12,8 +12,11 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
-# import environ
+import environ
 
+env = environ.Env()
+environ.Env.read_env(env_file='.env')
+from pathlib import Path
 
 # env = environ.Env()
 # environ.Env.read_env(env_file='.env')
@@ -83,10 +86,12 @@ WSGI_APPLICATION = 'nofrontend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': {"POSTGRES_DB"},
-        'USER': {"POSTGRES_USER"},
-        'PASSWORD': {"POSTGRES_PASSWORD"},
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': env("POSTGRES_DB"),
+        'USER': env("POSTGRES_USER"),
+        'PASSWORD': env("POSTGRES_PASSWORD"),
+        'HOST': env("POSTGRES_HOST"),
+        'PORT': '5432',
         'HOST': 5432,
     }
 }
